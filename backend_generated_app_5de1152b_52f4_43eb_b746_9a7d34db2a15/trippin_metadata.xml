@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="Model">
+            <EntityType HasStream="false" Name="Database">
+                <Key>
+                    <PropertyRef Name="DbId"/>
+                </Key>
+                <Property Name="DbId" Type="Edm.Int32"/>
+                <Property Name="Dbname" Type="Edm.String"/>
+                <Property Name="Dbversion" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="true" Name="Document">
+                <Key>
+                    <PropertyRef Name="DocId"/>
+                </Key>
+                <Property Name="DocId" Type="Edm.Int64"/>
+                <Property Name="FileType" Type="Edm.String"/>
+                <Property Name="FileName" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Project">
+                <Key>
+                    <PropertyRef Name="ProjectId"/>
+                </Key>
+                <Property Name="ProjectId" Type="Edm.Int64"/>
+                <Property Name="ProjectName" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="CustomerName" Type="Edm.String"/>
+                <Property Name="StartDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="EndDate" Type="Edm.DateTimeOffset"/>
+                <Property Name="CustomerAccountName" Type="Edm.String"/>
+                <Property Name="ProjectLogo" Type="Edm.Binary"/>
+                <Property Name="UserNameEmail" Type="Edm.String"/>
+                <Property Name="Apptier" Type="Edm.Int32"/>
+                <Property Name="GitHubURL" Type="Edm.String"/>
+                <Property Name="RepositoryName" Type="Edm.String"/>
+                <NavigationProperty Name="Capabilities" Type="Collection(Model.Capability)"/>
+                <NavigationProperty Name="BackendApps" Type="Collection(Model.BackendApp)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="ModelFile">
+                <Key>
+                    <PropertyRef Name="ModelId"/>
+                </Key>
+                <Property Name="ModelId" Type="Edm.Int64"/>
+                <Property Name="ModelName" Type="Edm.String"/>
+                <Property Name="ModelDescription" Type="Edm.String"/>
+                <Property Name="Path" Type="Edm.String"/>
+                <Property Name="ModelType" Type="Model.ModelType"/>
+                <Property Name="CreatedBy" Type="Model.ModelCreator"/>
+                <Property Name="IconPath" Type="Edm.String"/>
+                <Property Name="UserName" Type="Edm.String"/>
+                <Property Name="ModelFileName" Type="Edm.String"/>
+                <Property Name="ModelFileVersion" Type="Edm.String"/>
+                <NavigationProperty Name="Industry" Type="Model.Industry"/>
+                <NavigationProperty Name="File" Type="Model.Document"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Capability">
+                <Key>
+                    <PropertyRef Name="CapabilityId"/>
+                </Key>
+                <Property Name="CapabilityId" Type="Edm.Int32"/>
+                <Property Name="Name" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="Industry">
+                <Key>
+                    <PropertyRef Name="IndustryId"/>
+                </Key>
+                <Property Name="IndustryId" Type="Edm.Int64"/>
+                <Property Name="IndustryName" Type="Model.IndustryType"/>
+                <Property Name="Icon" Type="Edm.String"/>
+                <Property Name="IndustryVersion" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="User">
+                <Key>
+                    <PropertyRef Name="UserName"/>
+                </Key>
+                <Property Name="UserName" Type="Edm.String"/>
+                <Property Name="Name" Type="Edm.String"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BETechnology">
+                <Key>
+                    <PropertyRef Name="BeTechId"/>
+                </Key>
+                <Property Name="BeTechId" Type="Edm.Int32"/>
+                <Property Name="TechName" Type="Edm.String"/>
+                <Property Name="Description" Type="Edm.String"/>
+                <Property Name="Icon" Type="Edm.String"/>
+                <Property Name="Version" Type="Edm.String"/>
+                <Property Name="Features" Type="Collection(Edm.String)"/>
+            </EntityType>
+            <EntityType HasStream="false" Name="BackendApp">
+                <Key>
+                    <PropertyRef Name="AppId"/>
+                </Key>
+                <Property Name="AppId" Type="Edm.Int64"/>
+                <Property Name="ProjectDetails" Type="Model.BasicDetails"/>
+                <Property Name="DbSchemaName" Type="Edm.String"/>
+                <NavigationProperty Name="Model" Type="Model.ModelFile"/>
+                <NavigationProperty Name="Database" Type="Model.Database"/>
+                <NavigationProperty Name="Technology" Type="Model.BETechnology"/>
+                <NavigationProperty Name="Capabilities" Type="Collection(Model.Capability)"/>
+            </EntityType>
+            <EntityContainer Name="Container">
+                <EntitySet Name="Databases" EntityType="Model.Database"/>
+                <EntitySet Name="Documents" EntityType="Model.Document"/>
+                <EntitySet Name="Projects" EntityType="Model.Project">
+                    <NavigationPropertyBinding Path="Capabilities" Target="Capabilities"/>
+                    <NavigationPropertyBinding Path="BackendApps" Target="BackendApps"/>
+                </EntitySet>
+                <EntitySet Name="ModelFiles" EntityType="Model.ModelFile">
+                    <NavigationPropertyBinding Path="Industry" Target="Industries"/>
+                    <NavigationPropertyBinding Path="File" Target="Documents"/>
+                </EntitySet>
+                <EntitySet Name="Capabilities" EntityType="Model.Capability"/>
+                <EntitySet Name="Industries" EntityType="Model.Industry"/>
+                <EntitySet Name="Users" EntityType="Model.User"/>
+                <EntitySet Name="BETechnologies" EntityType="Model.BETechnology"/>
+                <EntitySet Name="BackendApps" EntityType="Model.BackendApp">
+                    <NavigationPropertyBinding Path="Model" Target="ModelFiles"/>
+                    <NavigationPropertyBinding Path="Database" Target="Databases"/>
+                    <NavigationPropertyBinding Path="Technology" Target="BETechnologies"/>
+                    <NavigationPropertyBinding Path="Capabilities" Target="Capabilities"/>
+                </EntitySet>
+            </EntityContainer>
+            <ComplexType Name="BasicDetails">
+                <Property Name="AppName" Type="Edm.String"/>
+                <Property Name="AppDescription" Type="Edm.String"/>
+                <Property Name="Namespace" Type="Edm.String"/>
+                <Property Name="PackageManagement" Type="Edm.String"/>
+                <Property Name="BuildTool" Type="Edm.String"/>
+                <Property Name="Server" Type="Edm.String"/>
+                <Property Name="Architecture" Type="Edm.String"/>
+            </ComplexType>
+            <EnumType Name="IndustryType">
+                <Member Name="HealthCare" Value="0"/>
+                <Member Name="Ecommerce" Value="1"/>
+            </EnumType>
+            <EnumType Name="ModelType">
+                <Member Name="StarUML" Value="0"/>
+                <Member Name="EDMX" Value="1"/>
+            </EnumType>
+            <EnumType Name="ModelCreator">
+                <Member Name="Replicacia" Value="0"/>
+                <Member Name="User" Value="1"/>
+            </EnumType>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

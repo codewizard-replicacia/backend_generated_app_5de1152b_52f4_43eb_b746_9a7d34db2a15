@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+		http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+		http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <property name="schemaName" value="generated_app"></property>
+    <property name="author=" value="db-designer"></property>
+    <changeSet id="v1-01-01" author="${author}">
+    
+ <createTable schemaName="${schemaName}" tableName="Industry">
+	<column name="IndustryId" type="BIGINT" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+ 	<column name="IndustryName" type="INTEGER" />
+   
+     <column name="Icon" type="VARCHAR(250)" />
+    
+     <column name="IndustryVersion" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Project">
+	<column name="ProjectId" type="BIGINT" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ProjectName" type="VARCHAR(250)" />
+    
+     <column name="Version" type="VARCHAR(250)" />
+    
+     <column name="Description" type="VARCHAR(250)" />
+    
+     <column name="CustomerName" type="VARCHAR(250)" />
+    
+     <column name="StartDate" type="TIMESTAMP" />
+    
+     <column name="EndDate" type="TIMESTAMP" />
+    
+     <column name="CustomerAccountName" type="VARCHAR(250)" />
+    
+     <column name="ProjectLogo" type="BINARY" />
+    
+     <column name="UserNameEmail" type="VARCHAR(250)" />
+    
+     <column name="Apptier" type="SERIAL" />
+    
+     <column name="GitHubURL" type="VARCHAR(250)" />
+    
+     <column name="RepositoryName" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="User">
+    <column name="UserName" type="VARCHAR(250)" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Capability">
+	<column name="CapabilityId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Name" type="VARCHAR(250)" />
+    
+     <column name="Description" type="VARCHAR(250)" />
+    
+     <column name="Icon" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="BETechnology">
+	<column name="BeTechId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="TechName" type="VARCHAR(250)" />
+    
+     <column name="Description" type="VARCHAR(250)" />
+    
+     <column name="Icon" type="VARCHAR(250)" />
+    
+     <column name="Version" type="VARCHAR(250)" />
+    
+  	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="ModelFile">
+	<column name="ModelId" type="BIGINT" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="ModelName" type="VARCHAR(250)" />
+    
+     <column name="ModelDescription" type="VARCHAR(250)" />
+    
+     <column name="Path" type="VARCHAR(250)" />
+    
+ 	<column name="ModelType" type="INTEGER" />
+   
+ 	<column name="CreatedBy" type="INTEGER" />
+   
+     <column name="IconPath" type="VARCHAR(250)" />
+    
+     <column name="UserName" type="VARCHAR(250)" />
+    
+     <column name="ModelFileName" type="VARCHAR(250)" />
+    
+     <column name="ModelFileVersion" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Database">
+	<column name="DbId" type="SERIAL" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="Dbname" type="VARCHAR(250)" />
+    
+     <column name="Dbversion" type="VARCHAR(250)" />
+    
+     <column name="Description" type="VARCHAR(250)" />
+    
+     <column name="Icon" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="Document">
+	<column name="DocId" type="BIGINT" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+     <column name="FileType" type="VARCHAR(250)" />
+    
+     <column name="FileName" type="VARCHAR(250)" />
+    
+ 	<column name="Content" type="BINARY"/>
+	<column name="DocFileType" type="VARCHAR(100)"/>
+	
+</createTable>
+ <createTable schemaName="${schemaName}" tableName="BackendApp">
+	<column name="AppId" type="BIGINT" autoIncrement="true" >
+        <constraints nullable="false" primaryKey="true"/>
+    </column>
+  	<column name="ProjectDetails_AppName" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_AppDescription" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_Namespace" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_PackageManagement" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_BuildTool" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_Server" type="VARCHAR(250)"/>
+	<column name="ProjectDetails_Architecture" type="VARCHAR(250)"/>
+     <column name="DbSchemaName" type="VARCHAR(250)" />
+    
+ 	
+</createTable>
+	
+  <createTable schemaName="${schemaName}" tableName="BackendAppCapabilities">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="AppId" type="BIGINT" />
+	<column name="CapabilityId" type="SERIAL" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="ProjectBackendApps">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="ProjectId" type="BIGINT" />
+	<column name="AppId" type="BIGINT" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="BETechnologyFeatures">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="BeTechId" type="SERIAL" />
+	<column name="Features" type="VARCHAR(250)" />
+</createTable>
+  <createTable schemaName="${schemaName}" tableName="ProjectCapabilities">
+	<column name="Id" type="SERIAL" autoIncrement="true">
+		<constraints primaryKey="true" nullable="false"/>
+	</column>
+	<column name="ProjectId" type="BIGINT" />
+	<column name="CapabilityId" type="SERIAL" />
+</createTable>
+
+ 	<addForeignKeyConstraint baseTableName="BackendAppCapabilities" baseTableSchemaName="${schemaName}"  baseColumnNames="AppId" constraintName="Capability_AppId_fk"
+	                                  referencedTableName="BackendApp" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="BackendAppCapabilities" baseTableSchemaName="${schemaName}"  baseColumnNames="CapabilityId" constraintName="Capability_CapabilityId_fk"
+	                                  referencedTableName="Capability" referencedTableSchemaName="${schemaName}" referencedColumnNames="CapabilityId"/>
+ 
+ 	<addForeignKeyConstraint baseTableName="ProjectBackendApps" baseTableSchemaName="${schemaName}"  baseColumnNames="ProjectId" constraintName="BackendApp_ProjectId_fk"
+	                                  referencedTableName="Project" referencedTableSchemaName="${schemaName}" referencedColumnNames="ProjectId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="ProjectBackendApps" baseTableSchemaName="${schemaName}"  baseColumnNames="AppId" constraintName="BackendApp_AppId_fk"
+	                                  referencedTableName="BackendApp" referencedTableSchemaName="${schemaName}" referencedColumnNames="AppId"/>
+ 
+ 	<addForeignKeyConstraint baseTableSchemaName="${schemaName}" baseTableName="BETechnologyFeatures" baseColumnNames="BeTechId" constraintName="BETechnology_BETechnologyFeatures_fk" referencedTableName="BETechnology"
+                                 	referencedColumnNames="BeTechId" referencedTableSchemaName="${schemaName}"/>
+ 
+ 	<addForeignKeyConstraint baseTableName="ProjectCapabilities" baseTableSchemaName="${schemaName}"  baseColumnNames="ProjectId" constraintName="Capability_ProjectId_fk"
+	                                  referencedTableName="Project" referencedTableSchemaName="${schemaName}" referencedColumnNames="ProjectId"/>
+	                                  
+	<addForeignKeyConstraint baseTableName="ProjectCapabilities" baseTableSchemaName="${schemaName}"  baseColumnNames="CapabilityId" constraintName="Capability_CapabilityId_fk"
+	                                  referencedTableName="Capability" referencedTableSchemaName="${schemaName}" referencedColumnNames="CapabilityId"/>
+ 
+	
+ 
+ 
+ 
+ 
+ 
+ 	<addColumn tableName="ModelFile" schemaName="${schemaName}">
+	    <column name="ModelFileIndustry" type="BIGINT"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="ModelFile" baseColumnNames="ModelFileIndustry" baseTableSchemaName="${schemaName}" constraintName="ModelFile_Industry_fk" referencedTableName="Industry"
+	                                 referencedColumnNames="IndustryId" referencedTableSchemaName="${schemaName}"/>
+ 
+	<addColumn tableName="ModelFile" schemaName="${schemaName}">
+	    <column name="ModelFileFile" type="BIGINT"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="ModelFile" baseColumnNames="ModelFileFile" baseTableSchemaName="${schemaName}" constraintName="ModelFile_File_fk" referencedTableName="Document"
+	                                 referencedColumnNames="DocId" referencedTableSchemaName="${schemaName}"/>
+ 
+
+ 
+ 
+ 	<addColumn tableName="BackendApp" schemaName="${schemaName}">
+	    <column name="BackendAppModel" type="BIGINT"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="BackendApp" baseColumnNames="BackendAppModel" baseTableSchemaName="${schemaName}" constraintName="BackendApp_Model_fk" referencedTableName="ModelFile"
+	                                 referencedColumnNames="ModelId" referencedTableSchemaName="${schemaName}"/>
+ 
+	<addColumn tableName="BackendApp" schemaName="${schemaName}">
+	    <column name="BackendAppDatabase" type="SERIAL"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="BackendApp" baseColumnNames="BackendAppDatabase" baseTableSchemaName="${schemaName}" constraintName="BackendApp_Database_fk" referencedTableName="Database"
+	                                 referencedColumnNames="DbId" referencedTableSchemaName="${schemaName}"/>
+ 
+	<addColumn tableName="BackendApp" schemaName="${schemaName}">
+	    <column name="BackendAppTechnology" type="SERIAL"/>
+	</addColumn>
+	<addForeignKeyConstraint baseTableName="BackendApp" baseColumnNames="BackendAppTechnology" baseTableSchemaName="${schemaName}" constraintName="BackendApp_Technology_fk" referencedTableName="BETechnology"
+	                                 referencedColumnNames="BeTechId" referencedTableSchemaName="${schemaName}"/>
+ 
+
+	    </changeSet>
+</databaseChangeLog>
